@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Datetime;
 use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -45,7 +46,7 @@ class Task
     {
         // Définit le fuseau horaire
         date_default_timezone_set('Europe/Paris');
-        $this->createdAt = new \Datetime();
+        $this->createdAt = new Datetime();
         $this->isDone = false;
     }
 
@@ -93,6 +94,18 @@ class Task
     public function isDone()
     {
         return $this->isDone;
+    }
+
+    public function getIsDone(): ?bool
+    {
+        return $this->isDone;
+    }
+
+    public function setIsDone(bool $isDone): self
+    {
+        $this->isDone = $isDone;
+
+        return $this;
     }
 
     public function toggle($flag)
