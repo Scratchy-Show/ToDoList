@@ -8,14 +8,14 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity
- * @ORM\Table
+ * @ORM\Table("task")
+ * @ORM\Entity(repositoryClass="App\Repository\TaskRepository")
  */
 class Task
 {
     /**
+     * @ORM\Id()
      * @ORM\Column(type="integer")
-     * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;

@@ -1,0 +1,65 @@
+<?php
+
+namespace App\Tests\Entity;
+
+use App\Entity\Task;
+use DateTime;
+use Liip\TestFixturesBundle\Test\FixturesTrait;
+use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use Symfony\Component\Validator\ConstraintViolation;
+
+class TaskTest extends KernelTestCase // Permet de récupérer le validateur avec des logiques plus complexes
+{
+    use FixturesTrait;
+
+    // Récupère l'entité
+    public function getEntity(): Task
+    {
+        return (new Task())
+            ->setCreatedAt(new Datetime())
+            ->setTitle('Tâche 1 test')
+            ->setContent('Contenu de test')
+            ->setIsDone(false)
+            ;
+    }
+
+    // Assertion personnalisée qui attend aucune erreur
+    public function assertHasErrors(Task $task, int $number = 0)
+    {
+        self::bootKernel();
+
+        // Récupère le Validateur depuis le container pour valider l'entité et récupère une liste d'erreur
+        $errors = self::$container->get('validator')->validate($task);
+
+        // Sauvegarde l'ensemblde des messages dans un tableau
+        $messages = [];
+
+        // Chaque erreur est un objet ConstraintViolation, c'est à dire qu'il y a un problème de contrainte
+        /** @var ConstraintViolation $error */
+        foreach ($errors as $error) {
+            // Pour chaque message: la clé du problème . => . message du problème
+            $messages[] = $error->getPropertyPath() . ' => ' . $error->getMessage();
+        }
+        // Indique le nombre d'erreur, l'erreur et les messages d'erreurs
+        $this->assertCount($number, $errors, implode(', ', $messages));
+    }
+
+    // Permet de vérifier qu'une entité valide reste valide
+    public function testValidEntity()
+    {
+        // Initialise l'entité avec aucune erreur
+        $this->assertHasErrors($this->getEntity(), 0);
+    }
+
+    public function testInvalidBlankTitleEntity()
+    {
+        // Titre vide
+        $this->assertHasErrors($this->getEntity()->setTitle(''), 1);
+    }
+
+    public function testInvalidBlankContentEntity()
+    {
+        // Contenu vide
+        $this->assertHasErrors($this->getEntity()->setContent(''), 1);
+    }
+}

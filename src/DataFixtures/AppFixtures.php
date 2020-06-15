@@ -15,12 +15,12 @@ class AppFixtures extends Fixture
     /**
      * @var UserPasswordEncoderInterface
      */
-    private $encoder;
+    private UserPasswordEncoderInterface $encoder;
 
     /**
      * @var Generator
      */
-    protected $faker;
+    protected Generator $faker;
 
     public function __construct(UserPasswordEncoderInterface $encoder)
     {
