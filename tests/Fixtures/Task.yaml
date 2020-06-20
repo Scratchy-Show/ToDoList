@@ -1,0 +1,9 @@
+App\Entity\Task:
+  task1:
+    title: "Tâche test 1"
+    content: "Contenu tâche test 1"
+    isDone: 1
+  task2:
+    title: "Tâche test 2"
+    content: "Contenu tâche test 2"
+    isDone: 0

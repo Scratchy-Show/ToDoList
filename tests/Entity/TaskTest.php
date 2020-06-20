@@ -12,6 +12,52 @@ class TaskTest extends KernelTestCase // Permet de récupérer le validateur ave
 {
     use FixturesTrait;
 
+    private $task;
+
+    public function setUp()
+    {
+        $this->task = new Task();
+    }
+
+    public function testConstruct()
+    {
+        $this->assertFalse($this->task->isDone());
+        $this->assertInstanceOf('DateTime', $this->task->getCreatedAt());
+    }
+
+    public function testId()
+    {
+        $this->assertSame(null, $this->task->getId());
+    }
+
+    public function testGetCreatedAt()
+    {
+        $this->task->setCreatedAt(new DateTime);
+        $this->assertSame(date('Y-m-d H:i:s'), $this->task->getCreatedAt()->format('Y-m-d H:i:s'));
+    }
+
+    public function testTitle()
+    {
+        $this->task->setTitle('Test titre');
+        $this->assertSame('Test titre', $this->task->getTitle());
+    }
+
+    public function testContent()
+    {
+        $this->task->setContent('Test contenu');
+        $this->assertSame('Test contenu', $this->task->getContent());
+    }
+
+    public function testIsDone()
+    {
+        $this->assertSame(false, $this->task->IsDone());
+    }
+
+    public function testToggle()
+    {
+        $this->assertEquals(false, $this->task->toggle(false));
+    }
+
     // Récupère l'entité
     public function getEntity(): Task
     {

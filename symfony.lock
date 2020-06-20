@@ -160,8 +160,23 @@
     "sebastian/recursion-context": {
         "version": "4.0.1"
     },
+    "sensio/framework-extra-bundle": {
+        "version": "5.2",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "5.2",
+            "ref": "fb7e19da7f013d0d422fa9bce16f5c510e27609b"
+        },
+        "files": [
+            "./config/packages/sensio_framework_extra.yaml"
+        ]
+    },
     "symfony/asset": {
         "version": "v5.1.0"
+    },
+    "symfony/browser-kit": {
+        "version": "v5.1.2"
     },
     "symfony/cache": {
         "version": "v5.1.0"
@@ -184,6 +199,9 @@
             "./bin/console"
         ]
     },
+    "symfony/css-selector": {
+        "version": "v5.1.2"
+    },
     "symfony/dependency-injection": {
         "version": "v5.1.0"
     },
@@ -192,6 +210,9 @@
     },
     "symfony/doctrine-bridge": {
         "version": "v5.1.0"
+    },
+    "symfony/dom-crawler": {
+        "version": "v5.1.2"
     },
     "symfony/dotenv": {
         "version": "v5.1.0"

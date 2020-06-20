@@ -15,12 +15,12 @@ class AppFixtures extends Fixture
     /**
      * @var UserPasswordEncoderInterface
      */
-    private UserPasswordEncoderInterface $encoder;
+    private $encoder;
 
     /**
      * @var Generator
      */
-    protected Generator $faker;
+    protected $faker;
 
     public function __construct(UserPasswordEncoderInterface $encoder)
     {
@@ -62,7 +62,6 @@ class AppFixtures extends Fixture
 
             $manager->persist($task);
         }
-
         $manager->flush();
     }
 }

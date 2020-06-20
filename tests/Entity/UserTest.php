@@ -11,13 +11,43 @@ class UserTest extends KernelTestCase // Permet de récupérer le validateur ave
 {
     use FixturesTrait;
 
+    private $user;
+
+    public function setUp()
+    {
+        $this->user = new User();
+    }
+
+    public function testId()
+    {
+        $this->assertSame(null, $this->user->getId());
+    }
+
+    public function testUsername()
+    {
+        $this->user->setUsername('Test username');
+        $this->assertSame('Test username', $this->user->getUsername());
+    }
+
+    public function testPassword()
+    {
+        $this->user->setPassword('Test password');
+        $this->assertSame('Test password', $this->user->getPassword());
+    }
+
+    public function testEmail()
+    {
+        $this->user->setEmail('test@gmail.com');
+        $this->assertSame('test@gmail.com', $this->user->getEmail());
+    }
+
     // Récupère l'entité
     public function getEntity(): User
     {
         return (new User())
-            ->setUsername('Test1')
+            ->setUsername('Test3')
             ->setPassword('password')
-            ->setEmail('nom1@exemple.fr')
+            ->setEmail('nom3@exemple.fr')
             ;
     }
 
