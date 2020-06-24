@@ -46,8 +46,8 @@ class DefaultControllerTest extends WebTestCase // Permet de créer des tests av
     // Test l'accès à la page d'accueil si identifié
     public function testIndexActionLoggedInAsUser()
     {
-        // Charge un fichier avec des données pour User
-        $users = $this->loadFixtureFiles([dirname(__DIR__) . '/Fixtures/User.yaml']);
+        // Charge un fichier avec des données
+        $users = $this->loadFixtureFiles([dirname(__DIR__) . '/DataFixtures/AppFixtures.yaml']);
 
         // Connecte l'utilisateur au client
         $this->login($this->client, $users['user']);

@@ -71,8 +71,8 @@ class SecurityControllerTest extends WebTestCase // Permet de créer des tests a
     // Test la connexion avec un bon login
     public function testLoginActionWithGoodCredentials()
     {
-        // Charge un fichier avec des données pour User
-        $this->loadFixtureFiles([dirname(__DIR__) . '/Fixtures/User.yaml']);
+        // Charge un fichier avec des données
+        $this->loadFixtureFiles([dirname(__DIR__) . '/DataFixtures/AppFixtures.yaml']);
 
         // Arrête le noyau avant de créer le client
         self::ensureKernelShutdown();
@@ -98,8 +98,8 @@ class SecurityControllerTest extends WebTestCase // Permet de créer des tests a
     // Test le lien de déconnexion
     public function testLogoutLink()
     {
-        // Charge un fichier avec des données pour User
-        $users = $this->loadFixtureFiles([dirname(__DIR__) . '/Fixtures/User.yaml']);
+        // Charge un fichier avec des données
+        $users = $this->loadFixtureFiles([dirname(__DIR__) . '/DataFixtures/AppFixtures.yaml']);
 
         // Connecte l'utilisateur au client
         $this->login($this->client, $users['user']);
@@ -136,8 +136,8 @@ class SecurityControllerTest extends WebTestCase // Permet de créer des tests a
     // Test le chemin de déconnexion
     public function testLogoutPath()
     {
-        // Charge un fichier avec des données pour User
-        $users = $this->loadFixtureFiles([dirname(__DIR__) . '/Fixtures/User.yaml']);
+        // Charge un fichier avec des données
+        $users = $this->loadFixtureFiles([dirname(__DIR__) . '/DataFixtures/AppFixtures.yaml']);
 
         // Connecte l'utilisateur au client
         $this->login($this->client, $users['user']);

@@ -96,11 +96,6 @@ class Task
         return $this->isDone;
     }
 
-    public function getIsDone(): ?bool
-    {
-        return $this->isDone;
-    }
-
     public function setIsDone(bool $isDone): self
     {
         $this->isDone = $isDone;

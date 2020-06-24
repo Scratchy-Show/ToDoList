@@ -44,8 +44,8 @@ class TaskControllerTest extends WebTestCase // Permet de créer des tests avec 
     // Test le lien pour afficher la page de la liste des tâches si identifié
     public function testListActionLink()
     {
-        // Charge un fichier avec des données pour User
-        $users = $this->loadFixtureFiles([dirname(__DIR__) . '/Fixtures/User.yaml']);
+        // Charge un fichier avec des données
+        $users = $this->loadFixtureFiles([dirname(__DIR__) . '/DataFixtures/AppFixtures.yaml']);
 
         // Connecte l'utilisateur au client
         $this->login($this->client, $users['user']);
@@ -75,8 +75,8 @@ class TaskControllerTest extends WebTestCase // Permet de créer des tests avec 
     // Test le chemin pour afficher la page de la liste des tâches si identifié
     public function testListActionPath()
     {
-        // Charge un fichier avec des données pour User
-        $users = $this->loadFixtureFiles([dirname(__DIR__) . '/Fixtures/User.yaml']);
+        // Charge un fichier avec des données
+        $users = $this->loadFixtureFiles([dirname(__DIR__) . '/DataFixtures/AppFixtures.yaml']);
 
         // Connecte l'utilisateur au client
         $this->login($this->client, $users['user']);
@@ -114,8 +114,8 @@ class TaskControllerTest extends WebTestCase // Permet de créer des tests avec 
     // Test le lien pour afficher la page de création d'une tâche si identifié
     public function testCreateActionLink()
     {
-        // Charge un fichier avec des données pour User
-        $users = $this->loadFixtureFiles([dirname(__DIR__) . '/Fixtures/User.yaml']);
+        // Charge un fichier avec des données
+        $users = $this->loadFixtureFiles([dirname(__DIR__) . '/DataFixtures/AppFixtures.yaml']);
 
         // Connecte l'utilisateur au client
         $this->login($this->client, $users['user']);
@@ -152,8 +152,8 @@ class TaskControllerTest extends WebTestCase // Permet de créer des tests avec 
     // Test la création d'une tâche si identifié
     public function testCreateAction()
     {
-        // Charge un fichier avec des données pour User
-        $users = $this->loadFixtureFiles([dirname(__DIR__) . '/Fixtures/User.yaml']);
+        // Charge un fichier avec des données
+        $users = $this->loadFixtureFiles([dirname(__DIR__) . '/DataFixtures/AppFixtures.yaml']);
 
         // Connecte l'utilisateur au client
         $this->login($this->client, $users['user']);
@@ -190,8 +190,8 @@ class TaskControllerTest extends WebTestCase // Permet de créer des tests avec 
     // Test la création d'une tâche - Si aucune données
     public function testCreateActionEmptyData()
     {
-        // Charge un fichier avec des données pour User
-        $users = $this->loadFixtureFiles([dirname(__DIR__) . '/Fixtures/User.yaml']);
+        // Charge un fichier avec des données
+        $users = $this->loadFixtureFiles([dirname(__DIR__) . '/DataFixtures/AppFixtures.yaml']);
 
         // Connecte l'utilisateur au client
         $this->login($this->client, $users['user']);
@@ -224,8 +224,8 @@ class TaskControllerTest extends WebTestCase // Permet de créer des tests avec 
     // Test la création d'une tâche - Si il manque le titre
     public function testCreateActionEmptyTitle()
     {
-        // Charge un fichier avec des données pour User
-        $users = $this->loadFixtureFiles([dirname(__DIR__) . '/Fixtures/User.yaml']);
+        // Charge un fichier avec des données
+        $users = $this->loadFixtureFiles([dirname(__DIR__) . '/DataFixtures/AppFixtures.yaml']);
 
         // Connecte l'utilisateur au client
         $this->login($this->client, $users['user']);
@@ -258,8 +258,8 @@ class TaskControllerTest extends WebTestCase // Permet de créer des tests avec 
     // Test la création d'une tâche - Si il manque le contenu
     public function testCreateActionEmptyContent()
     {
-        // Charge un fichier avec des données pour User
-        $users = $this->loadFixtureFiles([dirname(__DIR__) . '/Fixtures/User.yaml']);
+        // Charge un fichier avec des données
+        $users = $this->loadFixtureFiles([dirname(__DIR__) . '/DataFixtures/AppFixtures.yaml']);
 
         // Connecte l'utilisateur au client
         $this->login($this->client, $users['user']);
@@ -292,8 +292,8 @@ class TaskControllerTest extends WebTestCase // Permet de créer des tests avec 
     // Test le lien pour retourner à la page de la liste des tâches
     public function testCreateActionReturnButton()
     {
-        // Charge un fichier avec des données pour User
-        $users = $this->loadFixtureFiles([dirname(__DIR__) . '/Fixtures/User.yaml']);
+        // Charge un fichier avec des données
+        $users = $this->loadFixtureFiles([dirname(__DIR__) . '/DataFixtures/AppFixtures.yaml']);
 
         // Connecte l'utilisateur au client
         $this->login($this->client, $users['user']);
@@ -326,8 +326,8 @@ class TaskControllerTest extends WebTestCase // Permet de créer des tests avec 
     // Test l'accès à la page d'édition d'une tâche si non identifié
     public function testEditActionNotLogged()
     {
-        // Charge un fichier avec des données pour Task
-        $tasks = $this->loadFixtureFiles([dirname(__DIR__) . '/Fixtures/Task.yaml']);
+        // Charge un fichier avec des données
+        $tasks = $this->loadFixtureFiles([dirname(__DIR__) . '/DataFixtures/AppFixtures.yaml']);
 
         // Récupère la tâche dans la base de données de test
         $task =  $tasks['task1'];
@@ -352,23 +352,17 @@ class TaskControllerTest extends WebTestCase // Permet de créer des tests avec 
         self::assertSelectorTextContains('button', 'Se connecter');
     }
 
-/*
     // Test la modification d'une tâche si identifié
     public function testEditAction()
     {
-        // Charge un fichier avec des données pour User
-        $users = $this->loadFixtureFiles([dirname(__DIR__) . '/Fixtures/User.yaml']);
-        // Charge un fichier avec des données pour Task
-        $tasks = $this->loadFixtureFiles([dirname(__DIR__) . '/Fixtures/Task.yaml']);
+        // Charge un fichier avec des données
+        $users = $this->loadFixtureFiles([dirname(__DIR__) . '/DataFixtures/AppFixtures.yaml']);
 
         // Connecte l'utilisateur au client
         $this->login($this->client, $users['user']);
 
-        // Récupère la tâche dans la base de données de test
-        $task =  $tasks['task1'];
-
         // Requête qui renvoie un crawler qui permet d'analyser le contenu de la page et stock la réponse en mémoire
-        $crawler = $this->client->request('GET', '/tasks/'. $task->getId() .'/edit');
+        $crawler = $this->client->request('GET', '/tasks/1/edit');
 
         // Statut de la réponse attendu : type 200
         self::assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
@@ -410,7 +404,7 @@ class TaskControllerTest extends WebTestCase // Permet de créer des tests avec 
         // Vérifie le contenu du message flash
         self::assertGreaterThan(
             1,
-            $crawler->filter('div:contains("La tâche a été bien été modifiée.")')->count()
+            $crawler->filter('div:contains("La tâche a bien été modifiée.")')->count()
         );
 
         // Vérifie que la nouvelle tâche est bien affichée
@@ -423,14 +417,12 @@ class TaskControllerTest extends WebTestCase // Permet de créer des tests avec 
             $crawler->filter('html:contains("Modifier contenu de la tâche test")')->count()
         );
     }
-*/
-
 
     // Test l'accès au basculement d'une tâche si non identifié
     public function testToggleTaskActionNotLogged()
     {
-        // Charge un fichier avec des données pour Task
-        $tasks = $this->loadFixtureFiles([dirname(__DIR__) . '/Fixtures/Task.yaml']);
+        // Charge un fichier avec des données
+        $tasks = $this->loadFixtureFiles([dirname(__DIR__) . '/DataFixtures/AppFixtures.yaml']);
 
         // Récupère la tâche dans la base de données de test
         $task =  $tasks['task1'];
@@ -458,25 +450,14 @@ class TaskControllerTest extends WebTestCase // Permet de créer des tests avec 
     // Test la basculement d'une tâche de true en false
     public function testToggleInProgress()
     {
-        // Charge un fichier avec des données pour User
-        $users = $this->loadFixtureFiles([dirname(__DIR__) . '/Fixtures/User.yaml']);
-        // Charge un fichier avec des données pour Task
-        $tasks = $this->loadFixtureFiles([dirname(__DIR__) . '/Fixtures/Task.yaml']);
+        // Charge un fichier avec des données
+        $users = $this->loadFixtureFiles([dirname(__DIR__) . '/DataFixtures/AppFixtures.yaml']);
 
         // Connecte l'utilisateur au client
         $this->login($this->client, $users['user']);
 
-        // Récupère la tâche dans la base de données de test
-        $task =  $tasks['task1'];
-
         // Requête qui analyse le contenu de la page
-        $this->client->request('GET', 'tasks/'. $task->getId() .'/toggle');
-
-        // Suit la redirection et charge la page suivante
-        $this->client->followRedirect();
-
-        // Statut de la réponse attendu : type 302
-        self::assertSame(Response::HTTP_FOUND, $this->client->getResponse()->getStatusCode());
+        $this->client->request('GET', 'tasks/1/toggle');
 
         // Suit la redirection et charge la page suivante
         $crawler = $this->client->followRedirect();
@@ -491,25 +472,14 @@ class TaskControllerTest extends WebTestCase // Permet de créer des tests avec 
     // Test la basculement d'une tâche de false en true
     public function testToggleCompleted()
     {
-        // Charge un fichier avec des données pour User
-        $users = $this->loadFixtureFiles([dirname(__DIR__) . '/Fixtures/User.yaml']);
-        // Charge un fichier avec des données pour Task
-        $tasks = $this->loadFixtureFiles([dirname(__DIR__) . '/Fixtures/Task.yaml']);
+        // Charge un fichier avec des données
+        $users = $this->loadFixtureFiles([dirname(__DIR__) . '/DataFixtures/AppFixtures.yaml']);
 
         // Connecte l'utilisateur au client
         $this->login($this->client, $users['user']);
 
-        // Récupère la tâche dans la base de données de test
-        $task =  $tasks['task2'];
-
         // Requête qui analyse le contenu de la page
-        $this->client->request('GET', 'tasks/'. $task->getId() .'/toggle');
-
-        // Suit la redirection et charge la page suivante
-        $this->client->followRedirect();
-
-        // Statut de la réponse attendu : type 302
-        self::assertSame(Response::HTTP_FOUND, $this->client->getResponse()->getStatusCode());
+        $this->client->request('GET', 'tasks/2/toggle');
 
         // Suit la redirection et charge la page suivante
         $crawler = $this->client->followRedirect();
@@ -524,8 +494,8 @@ class TaskControllerTest extends WebTestCase // Permet de créer des tests avec 
     // Test l'accès à la suppression d'une tâche si non identifié
     public function testDeleteTaskActionNotLogged()
     {
-        // Charge un fichier avec des données pour Task
-        $tasks = $this->loadFixtureFiles([dirname(__DIR__) . '/Fixtures/Task.yaml']);
+        // Charge un fichier avec des données
+        $tasks = $this->loadFixtureFiles([dirname(__DIR__) . '/DataFixtures/AppFixtures.yaml']);
 
         // Récupère la tâche dans la base de données de test
         $task =  $tasks['task1'];
@@ -552,25 +522,14 @@ class TaskControllerTest extends WebTestCase // Permet de créer des tests avec 
 
     public function testDeleteAction()
     {
-        // Charge un fichier avec des données pour User
-        $users = $this->loadFixtureFiles([dirname(__DIR__) . '/Fixtures/User.yaml']);
-        // Charge un fichier avec des données pour Task
-        $tasks = $this->loadFixtureFiles([dirname(__DIR__) . '/Fixtures/Task.yaml']);
+        // Charge un fichier avec des données
+        $users = $this->loadFixtureFiles([dirname(__DIR__) . '/DataFixtures/AppFixtures.yaml']);
 
         // Connecte l'utilisateur au client
         $this->login($this->client, $users['user']);
 
-        // Récupère la tâche dans la base de données de test
-        $task =  $tasks['task1'];
-
         // Requête qui analyse le contenu de la page
-        $this->client->request('GET', 'tasks/'. $task->getId() .'/delete');
-
-        // Suit la redirection et charge la page suivante
-        $this->client->followRedirect();
-
-        // Statut de la réponse attendu : type 302
-        self::assertSame(Response::HTTP_FOUND, $this->client->getResponse()->getStatusCode());
+        $this->client->request('GET', 'tasks/1/delete');
 
         // Suit la redirection et charge la page suivante
         $crawler = $this->client->followRedirect();

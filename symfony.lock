@@ -124,6 +124,9 @@
             "./config/packages/test/nelmio_alice.yaml"
         ]
     },
+    "nette/tokenizer": {
+        "version": "v3.1.0"
+    },
     "nikic/php-parser": {
         "version": "v4.5.0"
     },

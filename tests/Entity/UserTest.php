@@ -82,7 +82,7 @@ class UserTest extends KernelTestCase // Permet de récupérer le validateur ave
     public function testInvalidUniqueEntity()
     {
         // Charge un fichier avec des données pour User
-        $this->loadFixtureFiles([dirname(__DIR__) . '/Fixtures/User.yaml']);
+        $this->loadFixtureFiles([dirname(__DIR__) . '/DataFixtures/AppFixtures.yaml']);
         // Pseudo déjà existant
         $this->assertHasErrors($this->getEntity()->setUsername('Test'), 1);
         // Email déjà existant

@@ -1,5 +1,0 @@
-App\Entity\User:
-  user:
-    username: "Test"
-    email: "nom@exemple.fr"
-    password: \$argon2id\$v=19\$m=65536,t=4,p=1\$ZzdscmVrN0pzRjNCWDhOLw\$PQ805BLpk+H2+mFDGdt4LXRhSn9TIItRe7Wzb8d9rdQ

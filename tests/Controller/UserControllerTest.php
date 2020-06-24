@@ -175,8 +175,8 @@ class UserControllerTest extends WebTestCase // Permet de créer des tests avec 
     // Test le chemin pour accéder à la page d'édition d'un utilisateur
     public function testEditActionPath()
     {
-        // Charge un fichier avec des données pour User
-        $users = $this->loadFixtureFiles([dirname(__DIR__) . '/Fixtures/User.yaml']);
+        // Charge un fichier avec des données
+        $users = $this->loadFixtureFiles([dirname(__DIR__) . '/DataFixtures/AppFixtures.yaml']);
 
         // Récupère la tâche dans la base de données de test
         $user =  $users['user'];
@@ -194,8 +194,8 @@ class UserControllerTest extends WebTestCase // Permet de créer des tests avec 
     // Test le lien pour accéder à la page d'édition d'un utilisateur
     public function testEditActionLink()
     {
-        // Charge un fichier avec des données pour User
-        $users = $this->loadFixtureFiles([dirname(__DIR__) . '/Fixtures/User.yaml']);
+        // Charge un fichier avec des données
+        $users = $this->loadFixtureFiles([dirname(__DIR__) . '/DataFixtures/AppFixtures.yaml']);
 
         // Récupère la tâche dans la base de données de test
         $user =  $users['user'];
@@ -231,8 +231,8 @@ class UserControllerTest extends WebTestCase // Permet de créer des tests avec 
     // Test l'édition d'un utilisateur
     public function testEditAction()
     {
-        // Charge un fichier avec des données pour User
-        $users = $this->loadFixtureFiles([dirname(__DIR__) . '/Fixtures/User.yaml']);
+        // Charge un fichier avec des données
+        $users = $this->loadFixtureFiles([dirname(__DIR__) . '/DataFixtures/AppFixtures.yaml']);
 
         // Récupère la tâche dans la base de données de test
         $user =  $users['user'];
