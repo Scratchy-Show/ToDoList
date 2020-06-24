@@ -2,6 +2,10 @@
 
 {% block header_img %}<img class="slide-image" src="{{ asset('img/todolist_content.jpg') }}" alt="todo list">{% endblock %}
 
+{% block header_title %}
+    <h1>Liste des tâches à faire</h1>
+{% endblock %}
+
 {% block body %}
     <a href="{{ path('task_create') }}" class="btn btn-info pull-right">Créer une tâche</a>
     <div class="row">
@@ -16,13 +20,16 @@
                     <p>{{ task.content }}</p>
                 </div>
                 <div>
+                    <form action="{{ path('task_delete', {'id' : task.id }) }}">
+                        <button class="btn btn-danger btn-sm pull-right">Supprimer</button>
+                    </form>
                     <form action="{{ path('task_toggle', {'id' : task.id }) }}">
                         <button class="btn btn-success btn-sm pull-right">
                             {% if not task.isDone %}Marquer comme faite{% else %}Marquer non terminée{% endif %}
                         </button>
                     </form>
-                    <form action="{{ path('task_delete', {'id' : task.id }) }}">
-                        <button class="btn btn-danger btn-sm pull-right">Supprimer</button>
+                    <form action="{{ path('task_edit', {'id' : task.id }) }}">
+                        <button class="btn btn-info btn-sm pull-right">Modifier</button>
                     </form>
                 </div>
             </div>

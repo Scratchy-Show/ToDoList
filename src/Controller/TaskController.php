@@ -94,7 +94,9 @@ class TaskController extends AbstractController // Permet d'utiliser la méthode
         $task->toggle(!$task->isDone());
         $this->getDoctrine()->getManager()->flush();
 
-        $this->addFlash('success', sprintf('La tâche %s a bien été marquée comme faite.', $task->getTitle()));
+        // Message de rétroaction différent selon le nouvel indicateur de tâche
+        $feedback = $task->isDone() ? 'La tâche "%s" est terminée.' : 'La tâche "%s" est en cours.';
+        $this->addFlash('success', sprintf($feedback, $task->getTitle()));
 
         return $this->redirectToRoute('task_list');
     }

@@ -108,6 +108,25 @@
     "liip/test-fixtures-bundle": {
         "version": "1.9.1"
     },
+    "myclabs/deep-copy": {
+        "version": "1.9.5"
+    },
+    "nelmio/alice": {
+        "version": "3.2",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "3.2",
+            "ref": "0b9900ece737bec7752e4155c0164639dd9b0cb0"
+        },
+        "files": [
+            "./config/packages/dev/nelmio_alice.yaml",
+            "./config/packages/test/nelmio_alice.yaml"
+        ]
+    },
+    "nette/tokenizer": {
+        "version": "v3.1.0"
+    },
     "nikic/php-parser": {
         "version": "v4.5.0"
     },
@@ -132,8 +151,35 @@
     "psr/log": {
         "version": "1.1.3"
     },
+    "sebastian/comparator": {
+        "version": "4.0.1"
+    },
+    "sebastian/diff": {
+        "version": "4.0.1"
+    },
+    "sebastian/exporter": {
+        "version": "4.0.1"
+    },
+    "sebastian/recursion-context": {
+        "version": "4.0.1"
+    },
+    "sensio/framework-extra-bundle": {
+        "version": "5.2",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "5.2",
+            "ref": "fb7e19da7f013d0d422fa9bce16f5c510e27609b"
+        },
+        "files": [
+            "./config/packages/sensio_framework_extra.yaml"
+        ]
+    },
     "symfony/asset": {
         "version": "v5.1.0"
+    },
+    "symfony/browser-kit": {
+        "version": "v5.1.2"
     },
     "symfony/cache": {
         "version": "v5.1.0"
@@ -156,6 +202,9 @@
             "./bin/console"
         ]
     },
+    "symfony/css-selector": {
+        "version": "v5.1.2"
+    },
     "symfony/dependency-injection": {
         "version": "v5.1.0"
     },
@@ -164,6 +213,9 @@
     },
     "symfony/doctrine-bridge": {
         "version": "v5.1.0"
+    },
+    "symfony/dom-crawler": {
+        "version": "v5.1.2"
     },
     "symfony/dotenv": {
         "version": "v5.1.0"
@@ -388,6 +440,15 @@
     },
     "symfony/yaml": {
         "version": "v5.1.0"
+    },
+    "theofidry/alice-data-fixtures": {
+        "version": "1.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "1.0",
+            "ref": "fe5a50faf580eb58f08ada2abe8afbd2d4941e05"
+        }
     },
     "twig/twig": {
         "version": "v3.0.3"
