@@ -18,7 +18,17 @@ class TaskController extends AbstractController // Permet d'utiliser la méthode
     public function listAction()
     {
         return $this->render('task/list.html.twig', [
-            'tasks' => $this->getDoctrine()->getRepository(Task::class)->findAll()
+            'tasks' => $this->getDoctrine()->getRepository(Task::class)->findBy(['isDone' => false])
+        ]);
+    }
+
+    /**
+     * @Route("/tasks/finish", name="task_finish_list")
+     */
+    public function listFinishAction()
+    {
+        return $this->render('task/finish.html.twig', [
+            'tasks' => $this->getDoctrine()->getRepository(Task::class)->findBy(['isDone' => true])
         ]);
     }
 
@@ -36,6 +46,9 @@ class TaskController extends AbstractController // Permet d'utiliser la méthode
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+
+            // L'utilisateur est rattaché à la tâche
+            $task->setUser($this->getUser());
 
             $em->persist($task);
             $em->flush();

@@ -3,6 +3,7 @@
 
 namespace App\Tests\Controller;
 
+use App\Entity\Task;
 use App\Tests\NeedLogin;
 use Liip\TestFixturesBundle\Test\FixturesTrait;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
@@ -14,11 +15,14 @@ class TaskControllerTest extends WebTestCase // Permet de créer des tests avec 
     use NeedLogin;
 
     private $client = null;
+    private $getEntityManager = null;
 
     public function setUp()
     {
         // Récupère un client
         $this->client = self::createClient();
+
+        $this->getEntityManager = $this->client->getContainer()->get('doctrine.orm.entity_manager');
     }
 
     // Test l'accès à la page de la liste des tâches si non identifié
@@ -185,6 +189,12 @@ class TaskControllerTest extends WebTestCase // Permet de créer des tests avec 
         // Vérifie que la nouvelle tâche est bien affichée
         self::assertSame(1, $crawler->filter('html:contains("Test création d\'une tâche")')->count());
         self::assertSame(1, $crawler->filter('html:contains("Contenu de la tâche test")')->count());
+
+        // Vérifie le pseudo du l'utilisateur
+        $userTaskCreated = $this->getEntityManager->getRepository(Task::class)->findOneBy([
+            'title' => 'Test création d\'une tâche'
+        ]);
+        $this->assertSame('Test', $userTaskCreated->getUser()->getUsername());
     }
 
     // Test la création d'une tâche - Si aucune données

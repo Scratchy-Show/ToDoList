@@ -25,7 +25,7 @@
                     </form>
                     <form action="{{ path('task_toggle', {'id' : task.id }) }}">
                         <button class="btn btn-success btn-sm pull-right">
-                            {% if not task.isDone %}Marquer comme faite{% else %}Marquer non terminée{% endif %}
+                            {% if not task.isDone %}Marquer comme faite{% endif %}
                         </button>
                     </form>
                     <form action="{{ path('task_edit', {'id' : task.id }) }}">
@@ -39,5 +39,6 @@
                 Il n'y a pas encore de tâche enregistrée. <a href="{{ path('task_create') }}" class="btn btn-warning pull-right">Créer une tâche</a>
             </div>
         {% endfor %}
+        <a href="{{ path('task_finish_list') }}" class="btn btn-info">Consulter la liste des tâches terminées</a>
     </div>
 {% endblock %}
