@@ -58,6 +58,12 @@ class User  implements UserInterface
     private $email;
 
     /**
+     * @ORM\Column(type="string")
+     * @Assert\NotBlank(message="Vous devez choisir un rôle.")
+     */
+    private $role;
+
+    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Task", mappedBy="user", orphanRemoval=true)
      */
     private $tasks;
@@ -84,6 +90,9 @@ class User  implements UserInterface
         return $this;
     }
 
+    /**
+     * @see UserInterface
+     */
     public function getPassword(): ?string
     {
         return $this->password;
@@ -108,16 +117,38 @@ class User  implements UserInterface
         return $this;
     }
 
+    /**
+     * @see UserInterface
+     */
     public function getSalt()
     {
         return null;
     }
 
+    /**
+     * @see UserInterface
+     * @return array
+     */
     public function getRoles()
     {
-        return array('ROLE_USER');
+        return array($this->role);
     }
 
+    public function getRole()
+    {
+        return $this->role;
+    }
+
+    public function setRole($role) :self
+    {
+        $this->role = $role;
+
+        return $this;
+    }
+
+    /**
+     * @see UserInterface
+     */
     public function eraseCredentials()
     {
     }

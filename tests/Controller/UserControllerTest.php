@@ -90,6 +90,7 @@ class UserControllerTest extends WebTestCase // Permet de créer des tests avec 
             'user[password][first]' => 'password',
             'user[password][second]' => 'password',
             'user[email]' => 'user@email.com',
+            'user[role]' => 'ROLE_USER'
         ]);
 
         // Soumet le formulaire

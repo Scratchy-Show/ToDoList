@@ -41,7 +41,8 @@ class AppFixtures extends Fixture
         $anonymous
             ->setUsername('Anonyme')
             ->setPassword($this->encoder->encodePassword($anonymous, 'password'))
-            ->setEmail('anonymous@gmail.com');
+            ->setEmail('anonymous@gmail.com')
+            ->setRole('ROLE_USER');
 
         $users[] = $anonymous;
 
@@ -54,7 +55,8 @@ class AppFixtures extends Fixture
             $user
                 ->setUsername($faker->userName)
                 ->setPassword($this->encoder->encodePassword($user, 'password'))
-                ->setEmail($faker->unique()->safeEmail);
+                ->setEmail($faker->unique()->safeEmail)
+                ->setRole('ROLE_USER');
 
             $users[] = $user;
 

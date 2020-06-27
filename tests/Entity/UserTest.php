@@ -41,13 +41,39 @@ class UserTest extends KernelTestCase // Permet de récupérer le validateur ave
         $this->assertSame('test@gmail.com', $this->user->getEmail());
     }
 
+    public function testRole()
+    {
+        $this->user->setRole('ROLE_USER');
+        $this->assertSame('ROLE_USER', $this->user->getRole());
+    }
+
+    public function testTaskUser()
+    {
+        // Charge un fichier avec des données
+        $tasks = $this->loadFixtureFiles([dirname(__DIR__) . '/DataFixtures/AppFixtures.yaml']);
+
+        // Récupère les tâches dans la base de données de test
+        $task1 =  $tasks['task1'];
+        $task2 =  $tasks['task2'];
+
+        $user = new User;
+        $user->addTask($task1);
+        $user->addTask($task2);
+
+        $this->assertCount(2, $user->getTasks());
+
+        $user->removeTask($task2);
+        $this->assertCount(1, $user->getTasks());
+    }
+
     // Récupère l'entité
     public function getEntity(): User
     {
         return (new User())
-            ->setUsername('Test3')
+            ->setUsername('Test2')
             ->setPassword('password')
-            ->setEmail('nom3@exemple.fr')
+            ->setEmail('nom2@exemple.fr')
+            ->setRole('ROLE_USER')
             ;
     }
 
@@ -84,9 +110,9 @@ class UserTest extends KernelTestCase // Permet de récupérer le validateur ave
         // Charge un fichier avec des données pour User
         $this->loadFixtureFiles([dirname(__DIR__) . '/DataFixtures/AppFixtures.yaml']);
         // Pseudo déjà existant
-        $this->assertHasErrors($this->getEntity()->setUsername('Test'), 1);
+        $this->assertHasErrors($this->getEntity()->setUsername('Test User'), 1);
         // Email déjà existant
-        $this->assertHasErrors($this->getEntity()->setEmail('nom@exemple.fr'), 1);
+        $this->assertHasErrors($this->getEntity()->setEmail('user@exemple.fr'), 1);
     }
 
     public function testInvalidUsernameEntity()
@@ -114,5 +140,11 @@ class UserTest extends KernelTestCase // Permet de récupérer le validateur ave
             ->setEmail('nom@exemmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmple.fr'), 1);
         // Email invalide
         $this->assertHasErrors($this->getEntity()->setEmail('nomexemple.fr'), 1);
+    }
+
+    public function testInvalidBlankRoleEntity()
+    {
+        // Rôle vide
+        $this->assertHasErrors($this->getEntity()->setRole(''), 1);
     }
 }
