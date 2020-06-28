@@ -16,6 +16,12 @@ class SecurityController extends AbstractController // Permet d'utiliser la mét
      */
     public function loginAction(AuthenticationUtils $authenticationUtils)
     {
+        // Si l'utilisateur est déjà connecté
+        if ($this->getUser() != null) {
+            // Redirection vers la page d'accueil
+            return $this->redirectToRoute('homepage');
+        }
+
         $error = $authenticationUtils->getLastAuthenticationError();
         $lastUsername = $authenticationUtils->getLastUsername();
 

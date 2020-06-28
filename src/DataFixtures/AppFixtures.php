@@ -35,6 +35,19 @@ class AppFixtures extends Fixture
         $users = [];
         $tasks = [];
 
+        // Utilisateur Anonyme
+        $anonymous = new User();
+
+        $anonymous
+            ->setUsername('Anonyme')
+            ->setPassword($this->encoder->encodePassword($anonymous, 'password'))
+            ->setEmail('anonymous@gmail.com')
+            ->setRole('ROLE_USER');
+
+        $users[] = $anonymous;
+
+        $manager->persist($anonymous);
+
         // 10 Utilisateurs
         for ($u = 0; $u < 10; $u++) {
             $user = new User();
@@ -42,7 +55,8 @@ class AppFixtures extends Fixture
             $user
                 ->setUsername($faker->userName)
                 ->setPassword($this->encoder->encodePassword($user, 'password'))
-                ->setEmail($faker->unique()->safeEmail);
+                ->setEmail($faker->unique()->safeEmail)
+                ->setRole('ROLE_USER');
 
             $users[] = $user;
 
@@ -58,7 +72,9 @@ class AppFixtures extends Fixture
                     ->dateTimeBetween($startDate = '-6 months', $endDate = 'now', $timezone = 'Europe/Paris'))
                 ->setTitle($faker->word)
                 ->setContent($faker->paragraph($nbSentences = 3, $variableNbSentences = true))
-                ->setIsDone($faker->boolean);
+                ->setIsDone($faker->boolean)
+                ->setUser($anonymous);
+                //->setUser($faker->randomElement($users));
 
             $tasks[] = $task;
 

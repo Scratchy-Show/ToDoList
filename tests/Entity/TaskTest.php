@@ -3,6 +3,7 @@
 namespace App\Tests\Entity;
 
 use App\Entity\Task;
+use App\Entity\User;
 use DateTime;
 use Liip\TestFixturesBundle\Test\FixturesTrait;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
@@ -55,7 +56,20 @@ class TaskTest extends KernelTestCase // Permet de récupérer le validateur ave
 
     public function testToggle()
     {
-        $this->assertEquals(false, $this->task->toggle(false));
+        $task = new Task;
+        $task->toggle(true);
+        $this->assertSame(true, $task->isDone());
+    }
+
+    public function testSetUserTask()
+    {
+        $user = new User;
+        $user->setUsername('Test User');
+
+        $task = new Task;
+        $task->setUser($user);
+
+        $this->assertSame('Test User', $task->getUser()->getUsername());
     }
 
     // Récupère l'entité

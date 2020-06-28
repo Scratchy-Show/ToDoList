@@ -3,6 +3,7 @@
 
 namespace App\Tests\Controller;
 
+use App\Entity\Task;
 use App\Tests\NeedLogin;
 use Liip\TestFixturesBundle\Test\FixturesTrait;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
@@ -14,11 +15,14 @@ class TaskControllerTest extends WebTestCase // Permet de créer des tests avec 
     use NeedLogin;
 
     private $client = null;
+    private $getEntityManager = null;
 
     public function setUp()
     {
         // Récupère un client
         $this->client = self::createClient();
+
+        $this->getEntityManager = $this->client->getContainer()->get('doctrine.orm.entity_manager');
     }
 
     // Test l'accès à la page de la liste des tâches si non identifié
@@ -89,6 +93,76 @@ class TaskControllerTest extends WebTestCase // Permet de créer des tests avec 
 
         // Vérifie la présence du titre
         self::assertSame(1, $crawler->filter('html:contains("Liste des tâches à faire")')->count());
+    }
+
+    // Test l'accès à la page de la liste des tâches terminées si non identifié
+    public function testListFinishActionNotLogged()
+    {
+        // Requête qui analyse le contenu de la page
+        $this->client->request('GET', '/tasks/finish');
+
+        // Suit la redirection et charge la page suivante
+        $crawler = $this->client->followRedirect();
+
+        // Statut de la réponse attendu : type 200
+        self::assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
+
+        // Vérifie la présence des champs d'identification
+        self::assertSame(1, $crawler->filter('input[name="_username"]')->count());
+        self::assertSame(1, $crawler->filter('input[name="_password"]')->count());
+
+        // Vérifie la présence du bouton "Se connecter"
+        self::assertSelectorTextContains('button', 'Se connecter');
+    }
+
+    // Test le lien pour afficher la page de la liste des tâches terminées si identifié
+    public function testListFinishActionLink()
+    {
+        // Charge un fichier avec des données
+        $users = $this->loadFixtureFiles([dirname(__DIR__) . '/DataFixtures/AppFixtures.yaml']);
+
+        // Connecte l'utilisateur au client
+        $this->login($this->client, $users['user']);
+
+        // Requête qui renvoie un crawler qui permet d'analyser le contenu de la page et stock la réponse en mémoire
+        $crawler = $this->client->request('GET', '/');
+
+        // Récupère le lien
+        $link = $crawler->selectLink('Consulter la liste des tâches terminées')->link();
+
+        // Click sur le lien
+        $this->client->click($link);
+
+        // Statut de la réponse attendu : type 200
+        self::assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
+
+        // Vérifie la présence du H1
+        self::assertSame(1, $crawler->filter('h1')->count());
+
+        // Vérifie la contenu du titre
+        self::assertSelectorTextContains(
+            'h1',
+            'Liste des tâches terminées'
+        );
+    }
+
+    // Test le chemin pour afficher la page de la liste des tâches terminées si identifié
+    public function testListFinishActionPath()
+    {
+        // Charge un fichier avec des données
+        $users = $this->loadFixtureFiles([dirname(__DIR__) . '/DataFixtures/AppFixtures.yaml']);
+
+        // Connecte l'utilisateur au client
+        $this->login($this->client, $users['user']);
+
+        // Requête qui renvoie un crawler qui permet d'analyser le contenu de la page et stock la réponse en mémoire
+        $crawler = $this->client->request('GET', '/tasks/finish');
+
+        // Statut de la réponse attendu : type 200
+        self::assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
+
+        // Vérifie la présence du titre
+        self::assertSame(1, $crawler->filter('html:contains("Liste des tâches terminées")')->count());
     }
 
     // Test l'accès à la page création d'une tâche si non identifié
@@ -185,6 +259,12 @@ class TaskControllerTest extends WebTestCase // Permet de créer des tests avec 
         // Vérifie que la nouvelle tâche est bien affichée
         self::assertSame(1, $crawler->filter('html:contains("Test création d\'une tâche")')->count());
         self::assertSame(1, $crawler->filter('html:contains("Contenu de la tâche test")')->count());
+
+        // Vérifie le pseudo du l'utilisateur
+        $userTaskCreated = $this->getEntityManager->getRepository(Task::class)->findOneBy([
+            'title' => 'Test création d\'une tâche'
+        ]);
+        $this->assertSame('Test User', $userTaskCreated->getUser()->getUsername());
     }
 
     // Test la création d'une tâche - Si aucune données
@@ -362,7 +442,7 @@ class TaskControllerTest extends WebTestCase // Permet de créer des tests avec 
         $this->login($this->client, $users['user']);
 
         // Requête qui renvoie un crawler qui permet d'analyser le contenu de la page et stock la réponse en mémoire
-        $crawler = $this->client->request('GET', '/tasks/1/edit');
+        $crawler = $this->client->request('GET', '/tasks/2/edit');
 
         // Statut de la réponse attendu : type 200
         self::assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());

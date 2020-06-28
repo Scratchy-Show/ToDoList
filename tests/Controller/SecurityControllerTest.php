@@ -36,6 +36,31 @@ class SecurityControllerTest extends WebTestCase // Permet de créer des tests a
         self::assertSelectorNotExists('.alert.alert-danger');
     }
 
+    // Test l'affichage de la page /login si déjà connecté
+    public function testLoginActionDisplayLogged()
+    {
+        // Charge un fichier avec des données
+        $users = $this->loadFixtureFiles([dirname(__DIR__) . '/DataFixtures/AppFixtures.yaml']);
+
+        // Connecte l'utilisateur au client
+        $this->login($this->client, $users['user']);
+
+        // Requête qui renvoie un crawler qui permet d'analyser le contenu de la page et stock la réponse en mémoire
+        $this->client->request('GET', '/login');
+
+        // Suit la redirection et charge la page suivante
+        $crawler = $this->client->followRedirect();
+
+        // Statut de la réponse attendu : type 200
+        self::assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
+
+        // Vérifie la présence du H1
+        self::assertSame(1, $crawler->filter('h1')->count());
+
+        // Vérifie le contenue du titre
+        self::assertSame(1, $crawler->filter('html:contains("Bienvenue sur Todo List")')->count());
+    }
+
     // Test la connexion avec un mauvais login
     public function testLoginActionWithBadCredentials()
     {
@@ -78,7 +103,7 @@ class SecurityControllerTest extends WebTestCase // Permet de créer des tests a
         self::ensureKernelShutdown();
 
         $this->client->request('POST', '/login_check', [
-            '_username' => 'Test',
+            '_username' => 'Test User',
             '_password' => 'password'
         ]);
 

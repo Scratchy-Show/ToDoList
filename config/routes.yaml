@@ -6,6 +6,10 @@ task_list:
   path: /tasks
   controller: App\Controller\TaskController::listAction
 
+task_finish_list:
+  path: /tasks/finish
+  controller: App\Controller\TaskController::listFinishAction
+
 task_create:
   path: /tasks/create
   controller: App\Controller\TaskController::createAction

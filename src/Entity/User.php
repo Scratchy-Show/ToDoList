@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -55,6 +57,22 @@ class User  implements UserInterface
      */
     private $email;
 
+    /**
+     * @ORM\Column(type="string")
+     * @Assert\NotBlank(message="Vous devez choisir un rôle.")
+     */
+    private $role;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Task", mappedBy="user", orphanRemoval=true)
+     */
+    private $tasks;
+
+    public function __construct()
+    {
+        $this->tasks = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -72,6 +90,9 @@ class User  implements UserInterface
         return $this;
     }
 
+    /**
+     * @see UserInterface
+     */
     public function getPassword(): ?string
     {
         return $this->password;
@@ -96,17 +117,70 @@ class User  implements UserInterface
         return $this;
     }
 
+    /**
+     * @see UserInterface
+     */
     public function getSalt()
     {
         return null;
     }
 
+    /**
+     * @see UserInterface
+     * @return array
+     */
     public function getRoles()
     {
-        return array('ROLE_USER');
+        return array($this->role);
     }
 
+    public function getRole()
+    {
+        return $this->role;
+    }
+
+    public function setRole($role) :self
+    {
+        $this->role = $role;
+
+        return $this;
+    }
+
+    /**
+     * @see UserInterface
+     */
     public function eraseCredentials()
     {
+    }
+
+    /**
+     * @return Collection|Task[]
+     */
+    public function getTasks(): Collection
+    {
+        return $this->tasks;
+    }
+
+    public function addTask(Task $task): self
+    {
+        if (!$this->tasks->contains($task)) {
+            $this->tasks[] = $task;
+            $task->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTask(Task $task): self
+    {
+        if ($this->tasks->contains($task)) {
+            $this->tasks->removeElement($task);
+            // set the owning side to null (unless already changed)
+            if ($task->getUser() === $this) {
+                $task->setUser(null);
+            }
+        }
+
+        return $this;
     }
 }
