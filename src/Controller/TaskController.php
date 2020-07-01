@@ -126,6 +126,31 @@ class TaskController extends AbstractController // Permet d'utiliser la méthode
         // Récupère la tâche
         $task = $em->getRepository(Task::class)->find($id);
 
+        // Récupère un tableau avec les rôles de l'utilisateur
+        $arrayRoles = $this->getUser()->getRoles();
+
+            // Si la tâche est anonyme
+            if ($task->getUser()->getUsername() == 'Anonyme')
+            {
+                // Si l'utilisateur n'est pas un ADMIN
+                if ($this->getUser()->getRoles() != in_array('ROLE_ADMIN', $arrayRoles))
+                {
+                    $this->addFlash('error', 'Seul un admin peut supprimer une tâche de l\'utilisateur anonyme');
+                    return $this->redirectToRoute('task_list');
+                }
+            }
+
+            // Si la tâche n'est pas anonyme
+            if ($task->getUser()->getUsername() != 'Anonyme')
+            {
+                // Si l'utilisateur n'est pas celui qui a créé la tâche
+                if ($this->getUser() != $task->getUser())
+                {
+                    $this->addFlash('error', 'Seul l\'auteur de la tâche peut la supprimer');
+                    return $this->redirectToRoute('task_list');
+                }
+            }
+
         $em->remove($task);
         $em->flush();
 

@@ -600,13 +600,127 @@ class TaskControllerTest extends WebTestCase // Permet de créer des tests avec 
         self::assertSelectorTextContains('button', 'Se connecter');
     }
 
-    public function testDeleteAction()
+    public function testDeleteUserHisTaskAction()
     {
         // Charge un fichier avec des données
-        $users = $this->loadFixtureFiles([dirname(__DIR__) . '/DataFixtures/AppFixtures.yaml']);
+        $data = $this->loadFixtureFiles([dirname(__DIR__) . '/DataFixtures/AppFixtures.yaml']);
 
         // Connecte l'utilisateur au client
-        $this->login($this->client, $users['user']);
+        $this->login($this->client, $data['user']);
+
+        // Récupère la tâche dans la base de données de test
+        $task =  $data['task1'];
+
+        $task->setUser($data['user']);
+
+        // Requête qui analyse le contenu de la page
+        $this->client->request('GET', 'tasks/1/delete');
+
+        // Suit la redirection et charge la page suivante
+        $crawler = $this->client->followRedirect();
+
+        // Statut de la réponse attendu : type 200
+        self::assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
+
+        $this->assertEquals(
+            1,
+            $crawler->filter('div.alert-success:contains("La tâche a bien été supprimée.")')->count());
+    }
+
+    public function testDeleteUserNotHisTaskAction()
+    {
+        // Charge un fichier avec des données
+        $data = $this->loadFixtureFiles([dirname(__DIR__) . '/DataFixtures/AppFixtures.yaml']);
+
+        // Connecte l'utilisateur au client
+        $this->login($this->client, $data['user']);
+
+        // Récupère la tâche dans la base de données de test
+        $task =  $data['task1'];
+
+        $task->setUser($data['admin']);
+
+        // Requête qui analyse le contenu de la page
+        $this->client->request('GET', 'tasks/1/delete');
+
+        // Statut de la réponse attendu : type 302
+        self::assertSame(Response::HTTP_FOUND, $this->client->getResponse()->getStatusCode());
+
+        // Suit la redirection et charge la page suivante
+        $crawler = $this->client->followRedirect();
+
+        // Statut de la réponse attendu : type 200
+        self::assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
+
+        // Vérifie la présence du H1
+        self::assertSame(1, $crawler->filter('h1')->count());
+
+        // Vérifie la contenu du titre
+        self::assertSelectorTextContains('h1', 'Liste des tâches à faire');
+
+        // Attend un selecteur particulier
+        self::assertSame(1, $crawler->filter('.alert.alert-danger')->count());
+
+        // Vérifie le contenu du message flash
+        self::assertGreaterThan(
+            1,
+            $crawler->filter('div:contains("Seul l\'auteur de la tâche peut la supprimer")')->count()
+        );
+    }
+
+    public function testDeleteUserAnonymousTaskAction()
+    {
+        // Charge un fichier avec des données
+        $data = $this->loadFixtureFiles([dirname(__DIR__) . '/DataFixtures/AppFixtures.yaml']);
+
+        // Connecte l'utilisateur au client
+        $this->login($this->client, $data['user']);
+
+        // Récupère la tâche dans la base de données de test
+        $task =  $data['task1'];
+
+        $task->setUser($data['anonyme']);
+
+        // Requête qui analyse le contenu de la page
+        $this->client->request('GET', 'tasks/1/delete');
+
+        // Statut de la réponse attendu : type 302
+        self::assertSame(Response::HTTP_FOUND, $this->client->getResponse()->getStatusCode());
+
+        // Suit la redirection et charge la page suivante
+        $crawler = $this->client->followRedirect();
+
+        // Statut de la réponse attendu : type 200
+        self::assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
+
+        // Vérifie la présence du H1
+        self::assertSame(1, $crawler->filter('h1')->count());
+
+        // Vérifie la contenu du titre
+        self::assertSelectorTextContains('h1', 'Liste des tâches à faire');
+
+        // Attend un selecteur particulier
+        self::assertSame(1, $crawler->filter('.alert.alert-danger')->count());
+
+        // Vérifie le contenu du message flash
+        self::assertGreaterThan(
+            1,
+            $crawler->filter('div:contains("Seul un admin peut supprimer une tâche de l\'utilisateur anonyme")')->count()
+        );
+    }
+
+    public function testDeleteAdminAnonymousTaskAction()
+    {
+        // Charge un fichier avec des données
+        $data = $this->loadFixtureFiles([dirname(__DIR__) . '/DataFixtures/AppFixtures.yaml']);
+
+        // Connecte l'utilisateur au client
+        $this->login($this->client, $data['admin']);
+
+        // Récupère la tâche dans la base de données de test
+        $task =  $data['task1'];
+
+        $task->setUser($data['anonyme']);
 
         // Requête qui analyse le contenu de la page
         $this->client->request('GET', 'tasks/1/delete');
