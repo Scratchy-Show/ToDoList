@@ -38,17 +38,19 @@
         <!-- Page Content -->
         <div class="container">
             <div class="row">
-                <a href="{{ path('user_create') }}" class="btn btn-primary">Créer un utilisateur</a>
-                {% if 'user_list' != app.request.attributes.get('_route') %}
-                <a href="{{ path('user_list') }}" class="btn btn-primary">Liste des utilisateurs</a>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <a href="{{ path('user_create') }}" class="btn btn-primary">Créer un utilisateur</a>
+                    {% if 'user_list' != app.request.attributes.get('_route') %}
+                        <a href="{{ path('user_list') }}" class="btn btn-primary">Liste des utilisateurs</a>
+                    {% endif %}
                 {% endif %}
 
                 {% if app.user %}
-                <a href="{{ path('logout') }}" class="pull-right btn btn-danger">Se déconnecter</a>
+                    <a href="{{ path('logout') }}" class="pull-right btn btn-danger">Se déconnecter</a>
                 {% endif %}
 
                 {% if not app.user and 'login' != app.request.attributes.get('_route') %}
-                <a href="{{ path('login') }}" class="btn btn-success">Se connecter</a>
+                    <a href="{{ path('login') }}" class="btn btn-success">Se connecter</a>
                 {% endif %}
             </div>
 
@@ -67,7 +69,9 @@
                     {% endfor %}
 
                     {% block header_title %}{% endblock %}
-                    {% block header_img %}<img class="slide-image" src="{{ asset('img/todolist_homepage.jpg') }}" alt="todo list">{% endblock %}
+                    {% block header_img %}
+                        <img class="slide-image" src="{{ asset('img/todolist_homepage.jpg') }}" alt="todo list">
+                    {% endblock %}
                 </div>
             </div>
 

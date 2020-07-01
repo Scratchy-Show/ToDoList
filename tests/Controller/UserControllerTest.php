@@ -21,9 +21,102 @@ class UserControllerTest extends WebTestCase // Permet de créer des tests avec 
         $this->client = self::createClient();
     }
 
+
+    /*//  Anonymous //*/
+
     // Test le chemin pour afficher la page de la liste des tâches
-    public function testListActionPath()
+    public function testListUserAsAnonymousActionPath()
     {
+        // Requête qui analyse le contenu de la page
+        $this->client->request('GET', '/users');
+
+        // Statut de la réponse attendu : type 302
+        self::assertSame(Response::HTTP_FOUND, $this->client->getResponse()->getStatusCode());
+
+        // Suit la redirection et charge la page suivante
+        $crawler = $this->client->followRedirect();
+
+        // Statut de la réponse attendu : type 200
+        self::assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
+
+        // Vérifie la présence des champs d'identification
+        self::assertSame(1, $crawler->filter('input[name="_username"]')->count());
+        self::assertSame(1, $crawler->filter('input[name="_password"]')->count());
+
+        // Vérifie la présence du bouton "Se connecter"
+        $this->assertSelectorTextContains('button', 'Se connecter');
+    }
+
+    // Test le chemin pour accéder à la page créer un utilisateur
+    public function testCreateUserAsAnonymousActionPath()
+    {
+        // Requête qui renvoie un crawler qui permet d'analyser le contenu de la page et stock la réponse en mémoire
+        $crawler = $this->client->request('GET', '/users');
+
+        // Statut de la réponse attendu : type 302
+        self::assertSame(Response::HTTP_FOUND, $this->client->getResponse()->getStatusCode());
+
+        // Suit la redirection et charge la page suivante
+        $crawler = $this->client->followRedirect();
+
+        // Statut de la réponse attendu : type 200
+        self::assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
+
+        // Vérifie la présence des champs d'identification
+        self::assertSame(1, $crawler->filter('input[name="_username"]')->count());
+        self::assertSame(1, $crawler->filter('input[name="_password"]')->count());
+
+        // Vérifie la présence du bouton "Se connecter"
+        $this->assertSelectorTextContains('button', 'Se connecter');
+    }
+
+
+    /*//  ROLE_USER //*/
+
+    // Test le chemin pour afficher la page de la liste des tâches
+    public function testListUserAsUserActionPath()
+    {
+        // Charge un fichier avec des données
+        $users = $this->loadFixtureFiles([dirname(__DIR__) . '/DataFixtures/AppFixtures.yaml']);
+
+        // Connecte l'utilisateur au client
+        $this->login($this->client, $users['user']);
+
+        // Requête qui analyse le contenu de la page
+        $this->client->request('GET', '/users');
+
+        // Statut de la réponse attendu : type 403
+        self::assertSame(Response::HTTP_FORBIDDEN, $this->client->getResponse()->getStatusCode());
+    }
+
+    // Test le chemin pour accéder à la page créer un utilisateur
+    public function testCreateUserAsUserActionPath()
+    {
+        // Charge un fichier avec des données
+        $users = $this->loadFixtureFiles([dirname(__DIR__) . '/DataFixtures/AppFixtures.yaml']);
+
+        // Connecte l'utilisateur au client
+        $this->login($this->client, $users['user']);
+
+        // Requête qui analyse le contenu de la page
+        $this->client->request('GET', '/users');
+
+        // Statut de la réponse attendu : type 403
+        self::assertSame(Response::HTTP_FORBIDDEN, $this->client->getResponse()->getStatusCode());
+    }
+
+
+    /*//  ROLE_ADMIN //*/
+
+    // Test le chemin pour afficher la page de la liste des tâches - ROLE_ADMIN
+    public function testListUserAsAdminActionPath()
+    {
+        // Charge un fichier avec des données
+        $users = $this->loadFixtureFiles([dirname(__DIR__) . '/DataFixtures/AppFixtures.yaml']);
+
+        // Connecte l'utilisateur au client
+        $this->login($this->client, $users['admin']);
+
         // Requête qui analyse le contenu de la page
         $this->client->request('GET', '/users');
 
@@ -35,8 +128,14 @@ class UserControllerTest extends WebTestCase // Permet de créer des tests avec 
     }
 
     // Test le chemin pour accéder à la page créer un utilisateur
-    public function testCreateActionPath()
+    public function testCreateUserAsAdminActionPath()
     {
+        // Charge un fichier avec des données
+        $users = $this->loadFixtureFiles([dirname(__DIR__) . '/DataFixtures/AppFixtures.yaml']);
+
+        // Connecte l'utilisateur au client
+        $this->login($this->client, $users['admin']);
+
         // Requête qui renvoie un crawler qui permet d'analyser le contenu de la page et stock la réponse en mémoire
         $crawler = $this->client->request('GET', '/users');
 
@@ -48,8 +147,14 @@ class UserControllerTest extends WebTestCase // Permet de créer des tests avec 
     }
 
     // Test le lien pour accéder à la page créer un utilisateur
-    public function testCreateActionLink()
+    public function testCreateUserAsAdminActionLink()
     {
+        // Charge un fichier avec des données
+        $users = $this->loadFixtureFiles([dirname(__DIR__) . '/DataFixtures/AppFixtures.yaml']);
+
+        // Connecte l'utilisateur au client
+        $this->login($this->client, $users['admin']);
+
         // Requête qui renvoie un crawler qui permet d'analyser le contenu de la page et stock la réponse en mémoire
         $crawler = $this->client->request('GET', '/users');
 
@@ -79,8 +184,14 @@ class UserControllerTest extends WebTestCase // Permet de créer des tests avec 
     }
 
     // Test la création d'un utilisateur
-    public function testCreateAction()
+    public function testCreateUserAsAdminAction()
     {
+        // Charge un fichier avec des données
+        $users = $this->loadFixtureFiles([dirname(__DIR__) . '/DataFixtures/AppFixtures.yaml']);
+
+        // Connecte l'utilisateur au client
+        $this->login($this->client, $users['admin']);
+
         // Requête qui renvoie un crawler qui permet d'analyser le contenu de la page et stock la réponse en mémoire
         $crawler = $this->client->request('GET', '/users/create');
 
@@ -114,8 +225,14 @@ class UserControllerTest extends WebTestCase // Permet de créer des tests avec 
     }
 
     // Test la création d'un utilisateur - Si aucune données
-    public function testCreateActionEmptyData()
+    public function testCreateUserAsAdminActionEmptyData()
     {
+        // Charge un fichier avec des données
+        $users = $this->loadFixtureFiles([dirname(__DIR__) . '/DataFixtures/AppFixtures.yaml']);
+
+        // Connecte l'utilisateur au client
+        $this->login($this->client, $users['admin']);
+
         // Requête qui renvoie un crawler qui permet d'analyser le contenu de la page et stock la réponse en mémoire
         $crawler = $this->client->request('GET', '/users/create');
 
@@ -150,8 +267,14 @@ class UserControllerTest extends WebTestCase // Permet de créer des tests avec 
     }
 
     // Test la création d'un utilisateur - Si les mots de passe sont différents
-    public function testCreateActionDifferentPasswords()
+    public function testCreateUserAsAdminActionDifferentPasswords()
     {
+        // Charge un fichier avec des données
+        $users = $this->loadFixtureFiles([dirname(__DIR__) . '/DataFixtures/AppFixtures.yaml']);
+
+        // Connecte l'utilisateur au client
+        $this->login($this->client, $users['admin']);
+
         // Requête qui renvoie un crawler qui permet d'analyser le contenu de la page et stock la réponse en mémoire
         $crawler = $this->client->request('GET', '/users/create');
 
@@ -174,8 +297,14 @@ class UserControllerTest extends WebTestCase // Permet de créer des tests avec 
     }
 
     // Test le chemin pour accéder à la page d'édition d'un utilisateur
-    public function testEditActionPath()
+    public function testEditUserAsAdminActionPath()
     {
+        // Charge un fichier avec des données
+        $users = $this->loadFixtureFiles([dirname(__DIR__) . '/DataFixtures/AppFixtures.yaml']);
+
+        // Connecte l'utilisateur au client
+        $this->login($this->client, $users['admin']);
+
         // Charge un fichier avec des données
         $users = $this->loadFixtureFiles([dirname(__DIR__) . '/DataFixtures/AppFixtures.yaml']);
 
@@ -193,8 +322,14 @@ class UserControllerTest extends WebTestCase // Permet de créer des tests avec 
     }
 
     // Test le lien pour accéder à la page d'édition d'un utilisateur
-    public function testEditActionLink()
+    public function testEditUserAsAdminActionLink()
     {
+        // Charge un fichier avec des données
+        $users = $this->loadFixtureFiles([dirname(__DIR__) . '/DataFixtures/AppFixtures.yaml']);
+
+        // Connecte l'utilisateur au client
+        $this->login($this->client, $users['admin']);
+
         // Charge un fichier avec des données
         $users = $this->loadFixtureFiles([dirname(__DIR__) . '/DataFixtures/AppFixtures.yaml']);
 
@@ -230,8 +365,14 @@ class UserControllerTest extends WebTestCase // Permet de créer des tests avec 
     }
 
     // Test l'édition d'un utilisateur
-    public function testEditAction()
+    public function testEditUserAsAdminAction()
     {
+        // Charge un fichier avec des données
+        $users = $this->loadFixtureFiles([dirname(__DIR__) . '/DataFixtures/AppFixtures.yaml']);
+
+        // Connecte l'utilisateur au client
+        $this->login($this->client, $users['admin']);
+
         // Charge un fichier avec des données
         $users = $this->loadFixtureFiles([dirname(__DIR__) . '/DataFixtures/AppFixtures.yaml']);
 
