@@ -21,7 +21,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *  message = "Cet email est déjà utilisé"
  * )
  */
-class User  implements UserInterface
+class User implements UserInterface
 {
     /**
      * @ORM\Id()

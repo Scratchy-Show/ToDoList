@@ -50,8 +50,8 @@ class UserControllerTest extends WebTestCase // Permet de créer des tests avec 
     // Test le chemin pour accéder à la page créer un utilisateur
     public function testCreateUserAsAnonymousActionPath()
     {
-        // Requête qui renvoie un crawler qui permet d'analyser le contenu de la page et stock la réponse en mémoire
-        $crawler = $this->client->request('GET', '/users');
+        // Requête qui analyse le contenu de la page
+        $this->client->request('GET', '/users');
 
         // Statut de la réponse attendu : type 302
         self::assertSame(Response::HTTP_FOUND, $this->client->getResponse()->getStatusCode());

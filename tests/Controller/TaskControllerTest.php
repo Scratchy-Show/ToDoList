@@ -459,8 +459,8 @@ class TaskControllerTest extends WebTestCase // Permet de créer des tests avec 
 
         // Récupère le bouton et le formulaire associé
         $form = $crawler->selectButton('Modifier')->form([
-            'task[title]' => 'Modifier test création d\'une tâche',
-            'task[content]' => 'Modifier contenu de la tâche test'
+            'task[title]' => 'Modification d\'une tâche',
+            'task[content]' => 'Modifier le contenu de la tâche'
         ]);
 
         // Soumet le formulaire
@@ -490,11 +490,11 @@ class TaskControllerTest extends WebTestCase // Permet de créer des tests avec 
         // Vérifie que la nouvelle tâche est bien affichée
         self::assertSame(
             1,
-            $crawler->filter('html:contains("Modifier test création d\'une tâche")')->count()
+            $crawler->filter('html:contains("Modification d\'une tâche")')->count()
         );
         self::assertSame(
             1,
-            $crawler->filter('html:contains("Modifier contenu de la tâche test")')->count()
+            $crawler->filter('html:contains("Modifier le contenu de la tâche")')->count()
         );
     }
 
@@ -600,6 +600,7 @@ class TaskControllerTest extends WebTestCase // Permet de créer des tests avec 
         self::assertSelectorTextContains('button', 'Se connecter');
     }
 
+    // Test la suppression d'une tâche si l'utilisateur est l'auteur
     public function testDeleteUserHisTaskAction()
     {
         // Charge un fichier avec des données
@@ -624,9 +625,11 @@ class TaskControllerTest extends WebTestCase // Permet de créer des tests avec 
 
         $this->assertEquals(
             1,
-            $crawler->filter('div.alert-success:contains("La tâche a bien été supprimée.")')->count());
+            $crawler->filter('div.alert-success:contains("La tâche a bien été supprimée.")')->count()
+        );
     }
 
+    // Test la suppression d'une tâche si l'utilisateur n'est est pas l'auteur
     public function testDeleteUserNotHisTaskAction()
     {
         // Charge un fichier avec des données
@@ -668,6 +671,7 @@ class TaskControllerTest extends WebTestCase // Permet de créer des tests avec 
         );
     }
 
+    // Test la suppression d'une tâche anonyme si l'utilisateur est un USER
     public function testDeleteUserAnonymousTaskAction()
     {
         // Charge un fichier avec des données
@@ -705,10 +709,12 @@ class TaskControllerTest extends WebTestCase // Permet de créer des tests avec 
         // Vérifie le contenu du message flash
         self::assertGreaterThan(
             1,
-            $crawler->filter('div:contains("Seul un admin peut supprimer une tâche de l\'utilisateur anonyme")')->count()
+            $crawler->filter('div:contains("Seul un admin peut supprimer une tâche de l\'utilisateur anonyme")')
+                ->count()
         );
     }
 
+    // Test la suppression d'une tâche anonyme si l'utilisateur est un ADMIN
     public function testDeleteAdminAnonymousTaskAction()
     {
         // Charge un fichier avec des données
@@ -733,6 +739,7 @@ class TaskControllerTest extends WebTestCase // Permet de créer des tests avec 
 
         $this->assertEquals(
             1,
-            $crawler->filter('div.alert-success:contains("La tâche a bien été supprimée.")')->count());
+            $crawler->filter('div.alert-success:contains("La tâche a bien été supprimée.")')->count()
+        );
     }
 }
