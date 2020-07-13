@@ -57,8 +57,8 @@ class UpdateTaskAnonymousCommand extends Command
         foreach ($tasks as $task) {
             $task->setUser($user[0]);
             $em->persist($task);
-            $em->flush();
         }
+        $em->flush();
         $output->writeln('The tasks without users are updated with the user Anonyme.');
         return 0;
     }
