@@ -340,7 +340,7 @@ class UserControllerTest extends WebTestCase // Permet de créer des tests avec 
         $crawler = $this->client->request('GET', '/users');
 
         // Récupère le lien
-        $link = $crawler->selectLink('Edit')->link();
+        $link = $crawler->selectLink('Modifier')->link();
 
         // Click sur le lien
         $this->client->click($link);

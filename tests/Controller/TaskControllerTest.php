@@ -58,7 +58,7 @@ class TaskControllerTest extends WebTestCase // Permet de créer des tests avec 
         $crawler = $this->client->request('GET', '/');
 
         // Récupère le lien
-        $link = $crawler->selectLink('Consulter la liste des tâches à faire')->link();
+        $link = $crawler->selectLink('Liste des tâches à faire')->link();
 
         // Click sur le lien
         $this->client->click($link);
@@ -128,7 +128,7 @@ class TaskControllerTest extends WebTestCase // Permet de créer des tests avec 
         $crawler = $this->client->request('GET', '/');
 
         // Récupère le lien
-        $link = $crawler->selectLink('Consulter la liste des tâches terminées')->link();
+        $link = $crawler->selectLink('Liste des tâches terminées')->link();
 
         // Click sur le lien
         $this->client->click($link);
