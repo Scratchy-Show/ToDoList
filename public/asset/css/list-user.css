@@ -30,14 +30,14 @@
     display: block;
   }
 
+  .list-user .table tr {
+    border: 1px solid #ccc;
+  }
+
   .list-user .table thead tr {
     position: absolute;
     top: -9999px;
     left: -9999px;
-  }
-
-  .list-user .table tr {
-    border: 1px solid #ccc;
   }
 
   .list-user .table tr td {
@@ -54,7 +54,7 @@
   td:nth-of-type(4)::before { content: "Roles"; }
   td:nth-of-type(5)::before { content: "Actions"; }
 
-  .list-user .table tr td:before {
+  .list-user .table tr td::before {
     position: absolute;
     top: 6px;
     left: 6px;
@@ -62,4 +62,5 @@
     padding-right: 10px;
     white-space: nowrap;
   }
+
 }
