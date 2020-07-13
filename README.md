@@ -94,3 +94,8 @@ symfony server:start
 ```
 php bin/phpunit
 ```
+
+6.  **Check code coverage** - Execute the command :
+```
+php bin/phpunit --coverage-html tests/Coverage
+```
