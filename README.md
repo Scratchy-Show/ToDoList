@@ -56,6 +56,9 @@ php bin/console doctrine:schema:update --force
 php bin/console doctrine:fixtures:load
 ```
 
+**N.B.**: If you imported tasks that are not linked to any user, the `php bin/console todolist:updatetaskanonymous` command allows you to link orphaned tasks to the Anonyme user.
+
+
  8. **Run the Symfony server** - Execute the command :
 ```
 symfony server:start
