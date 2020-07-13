@@ -16,20 +16,20 @@
   margin: auto;
 }
 
-.container-list-task .list-task .task,
-.finish-list-task .task {
-  width: 360px;
-  margin-bottom: 15px;
-}
-
 .container-list-task .list-task .task .container-buttons,
 .finish-list-task .task .container-buttons {
   display: flex;
   flex-direction: row-reverse;
 }
 
-.container-list-task .list-task .task .container-buttons form button,
-.finish-list-task .task .container-buttons form button {
+.finish-list-task .task,
+.container-list-task .list-task .task {
+  width: 360px;
+  margin-bottom: 15px;
+}
+
+.finish-list-task .task .container-buttons form button,
+.container-list-task .list-task .task .container-buttons form button {
   margin: 5px;
 }
 
@@ -55,4 +55,5 @@
     width: 100%;
     min-width: 340px;
   }
+
 }
