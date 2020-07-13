@@ -62,8 +62,8 @@ class AppFixtures extends Fixture
 
         $manager->persist($admin);
 
-        // 10 Utilisateurs
-        for ($u = 0; $u < 10; $u++) {
+        // 8 Utilisateurs
+        for ($u = 0; $u < 8; $u++) {
             $user = new User();
 
             $user
@@ -87,7 +87,7 @@ class AppFixtures extends Fixture
                 ->setTitle($faker->word)
                 ->setContent($faker->paragraph($nbSentences = 3, $variableNbSentences = true))
                 ->setIsDone($faker->boolean)
-                ->setUser($anonymous);
+                ->setUser($faker->randomElement($users));
 
             $tasks[] = $task;
 
