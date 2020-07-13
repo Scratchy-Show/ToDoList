@@ -1,112 +1,110 @@
 .edit-task,
 .edit-user {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .edit-task form,
 .edit-user form {
-    display: flex;
-    flex-direction: column;
-    width: 95%;
-    margin: auto;
+  display: flex;
+  flex-direction: column;
+  width: 95%;
+  margin: auto;
 }
 
 .edit-task form #task div,
 .edit-user form #user div {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 90%;
-    margin: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+  margin: 10px;
 }
 
 .edit-task form #task div label,
 .edit-user form #user div label {
-    margin-right: 5px;
-    text-align: end;
+  margin-right: 5px;
+  text-align: end;
 }
 
 .edit-task form #task div label {
-    width: 60px;
+  width: 60px;
 }
 
 .edit-user form #user div label {
-    width: 225px;
+  width: 225px;
 }
 
 .edit-task form #task div input,
 .edit-user form #user div input,
 .edit-task form #task div textarea {
-    width: 50%;
+  width: 50%;
 }
 
 .edit-task form #task div textarea {
-    height: 60px;
+  height: 60px;
 }
 
 .edit-user form #user div #user_role {
-    width: 150px;
+  width: 150px;
 }
 
 .edit-user form #user div #user_role input {
-    margin: 0;
+  margin: 0;
 }
 
 .edit-user form #user div #user_role label {
-    margin-bottom: 0;
+  margin-bottom: 0;
 }
 
 .edit-task form button,
 .edit-user form button {
-    align-self: flex-end;
+  align-self: flex-end;
 }
 
 .edit-task a {
-    margin: auto;
+  margin: auto;
 }
 
-/* 600px */
-
 @media screen and (max-width: 600px) {
-    .edit-task form #task,
-    .edit-user form #user {
-        width: 95%;
-        margin: auto;
-    }
+  .edit-task form #task,
+  .edit-user form #user {
+    width: 95%;
+    margin: auto;
+  }
 
-    .edit-task form #task div,
-    .edit-user form #user div {
-        flex-direction: column;
-    }
+  .edit-task form #task div,
+  .edit-user form #user div {
+    flex-direction: column;
+  }
 
-    .edit-task form #task div {
-        margin: auto auto 15px;
-    }
+  .edit-task form #task div {
+    margin: auto auto 15px;
+  }
 
-    .edit-task form #task div label,
-    .edit-user form #user div label {
-        width: 100%;
-        margin-right: 0;
-        text-align: center;
-    }
+  .edit-task form #task div label,
+  .edit-user form #user div label {
+    width: 100%;
+    margin-right: 0;
+    text-align: center;
+  }
 
-    .edit-task form #task div input,
-    .edit-user form #user div input,
-    .edit-task form #task div textarea {
-        width: 90%;
-    }
+  .edit-task form #task div input,
+  .edit-user form #user div input,
+  .edit-task form #task div textarea {
+    width: 90%;
+  }
 
-    .edit-user form #user div #user_role {
-        flex-direction: row;
-    }
+  .edit-user form #user div #user_role {
+    flex-direction: row;
+  }
 
-    .edit-task form button,
-    .edit-user form button {
-        align-self: center;
-    }
+  .edit-task form button,
+  .edit-user form button {
+    align-self: center;
+  }
 
-    .edit-task form button {
-        margin-bottom: 15px;
-    }
+  .edit-task form button {
+    margin-bottom: 15px;
+  }
 }

@@ -1,66 +1,66 @@
 .list-user .table {
-    width: 100%;
-    border-collapse: collapse;
+  width: 100%;
+  border-collapse: collapse;
 }
 
 .list-user .table tr:nth-last-of-type(odd) {
-    background: #eee;
+  background: #eee;
 }
 
 .list-user .table tr th {
-    background: #333;
-    color: white;
-    font-weight: bold;
+  background: #333;
+  color: white;
+  font-weight: bold;
 }
 
 .list-user .table tr td,
 .list-user .table tr th {
-    padding: 6px;
-    border: 1px solid #ccc;
-    text-align: left;
+  padding: 6px;
+  border: 1px solid #ccc;
+  text-align: left;
 }
 
 @media
 only screen and (max-width: 760px){
-    .list-user .table,
-    .list-user .table thead,
-    .list-user .table tbody,
-    .list-user .table tr,
-    .list-user .table tr th,
-    .list-user .table tr td {
-        display: block;
-    }
+  .list-user .table,
+  .list-user .table thead,
+  .list-user .table tbody,
+  .list-user .table tr,
+  .list-user .table tr th,
+  .list-user .table tr td {
+    display: block;
+  }
 
-    .list-user .table thead tr {
-        position: absolute;
-        top: -9999px;
-        left: -9999px;
-    }
+  .list-user .table thead tr {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
 
-    .list-user .table tr {
-        border: 1px solid #ccc;
-    }
+  .list-user .table tr {
+    border: 1px solid #ccc;
+  }
 
-    .list-user .table tr td {
-        overflow-wrap: break-word;
-        border: none;
-        border-bottom: 1px solid #eee;
-        position: relative;
-        padding-left: 50%;
-    }
+  .list-user .table tr td {
+    overflow-wrap: break-word;
+    border: none;
+    border-bottom: 1px solid #eee;
+    position: relative;
+    padding-left: 50%;
+  }
 
-    .list-user .table tr td:before {
-        position: absolute;
-        top: 6px;
-        left: 6px;
-        width: 45%;
-        padding-right: 10px;
-        white-space: nowrap;
-    }
+  .list-user .table tr td:before {
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    width: 45%;
+    padding-right: 10px;
+    white-space: nowrap;
+  }
 
-    td:nth-of-type(1):before { content: "#"; }
-    td:nth-of-type(2):before { content: "Nom d'utilisateur"; }
-    td:nth-of-type(3):before { content: "Adresse d'utilisateur"; }
-    td:nth-of-type(4):before { content: "Roles"; }
-    td:nth-of-type(5):before { content: "Actions"; }
+  td:nth-of-type(1):before { content: "#"; }
+  td:nth-of-type(2):before { content: "Nom d'utilisateur"; }
+  td:nth-of-type(3):before { content: "Adresse d'utilisateur"; }
+  td:nth-of-type(4):before { content: "Roles"; }
+  td:nth-of-type(5):before { content: "Actions"; }
 }

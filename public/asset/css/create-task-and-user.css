@@ -1,112 +1,110 @@
 .create-task,
 .create-user {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .create-task form,
 .create-user form {
-    display: flex;
-    flex-direction: column;
-    width: 95%;
-    margin: auto;
+  display: flex;
+  flex-direction: column;
+  width: 95%;
+  margin: auto;
 }
 
 .create-task form #task div,
 .create-user form #user div {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 90%;
-    margin: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+  margin: 10px;
 }
 
 .create-task form #task div label,
 .create-user form #user div label {
-    margin-right: 5px;
-    text-align: end;
+  margin-right: 5px;
+  text-align: end;
 }
 
 .create-task form #task div label {
-    width: 60px;
+  width: 60px;
 }
 
 .create-user form #user div label {
-    width: 225px;
+  width: 225px;
 }
 
 .create-task form #task div input,
 .create-user form #user div input,
 .create-task form #task div textarea {
-    width: 50%;
+  width: 50%;
 }
 
 .create-task form #task div textarea {
-    height: 60px;
+  height: 60px;
 }
 
 .create-user form #user div #user_role {
-    width: 150px;
+  width: 150px;
 }
 
 .create-user form #user div #user_role input {
-    margin: 0;
+  margin: 0;
 }
 
 .create-user form #user div #user_role label {
-    margin-bottom: 0;
+  margin-bottom: 0;
 }
 
 .create-task form button,
 .create-user form button {
-    align-self: flex-end;
+  align-self: flex-end;
 }
 
 .create-task a {
-    margin: auto;
+  margin: auto;
 }
 
-/* 600px */
-
 @media screen and (max-width: 600px) {
-    .create-task form #task,
-    .create-user form #user {
-        width: 95%;
-        margin: auto;
-    }
+  .create-task form #task,
+  .create-user form #user {
+    width: 95%;
+    margin: auto;
+  }
 
-    .create-task form #task div,
-    .create-user form #user div {
-        flex-direction: column;
-    }
+  .create-task form #task div,
+  .create-user form #user div {
+    flex-direction: column;
+  }
 
-    .create-task form #task div {
-        margin: auto auto 15px;
-    }
+  .create-task form #task div {
+    margin: auto auto 15px;
+  }
 
-    .create-task form #task div label,
-    .create-user form #user div label {
-        width: 100%;
-        margin-right: 0;
-        text-align: center;
-    }
+  .create-task form #task div label,
+  .create-user form #user div label {
+    width: 100%;
+    margin-right: 0;
+    text-align: center;
+  }
 
-    .create-task form #task div input,
-    .create-user form #user div input,
-    .create-task form #task div textarea {
-        width: 90%;
-    }
+  .create-task form #task div input,
+  .create-user form #user div input,
+  .create-task form #task div textarea {
+    width: 90%;
+  }
 
-    .create-user form #user div #user_role {
-        flex-direction: row;
-    }
+  .create-user form #user div #user_role {
+    flex-direction: row;
+  }
 
-    .create-task form button,
-    .create-user form button {
-        align-self: center;
-    }
+  .create-task form button,
+  .create-user form button {
+    align-self: center;
+  }
 
-    .create-task form button {
-        margin-bottom: 15px;
-    }
+  .create-task form button {
+    margin-bottom: 15px;
+  }
 }

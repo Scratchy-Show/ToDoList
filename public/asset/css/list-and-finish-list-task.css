@@ -1,62 +1,58 @@
 .container-list-task {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .container-list-task a {
-    margin: auto auto 15px;
+  margin: auto auto 15px;
 }
 
 .container-list-task .list-task,
 .finish-list-task {
-    display: flex;
-    justify-content: flex-start;
-    flex-wrap: wrap;
-    width: 95%;
-    margin: auto;
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  width: 95%;
+  margin: auto;
 }
 
 .container-list-task .list-task .task,
 .finish-list-task .task {
-    width: 360px;
-    margin-bottom: 15px;
+  width: 360px;
+  margin-bottom: 15px;
 }
 
 .container-list-task .list-task .task .container-buttons,
 .finish-list-task .task .container-buttons {
-    display: flex;
-    flex-direction: row-reverse;
+  display: flex;
+  flex-direction: row-reverse;
 }
 
 .container-list-task .list-task .task .container-buttons form button,
 .finish-list-task .task .container-buttons form button {
-    margin: 5px;
+  margin: 5px;
 }
 
 .container-list-task .list-task a {
-    margin: auto;
+  margin: auto;
 }
 
 .container-list-task .link-finish-list,
 .link-list-task {
-    text-align: center;
+  text-align: center;
 }
-
-/* 1199px */
 
 @media screen and (max-width: 1199px) {
-    .container-list-task .list-task,
-    .finish-list-task {
-        justify-content: center;
-    }
+  .container-list-task .list-task,
+  .finish-list-task {
+    justify-content: center;
+  }
 }
 
-/* 991px */
-
 @media screen and (max-width: 991px) {
-    .container-list-task .list-task .task,
-    .finish-list-task .task {
-        width: 100%;
-        min-width: 340px;
-    }
+  .container-list-task .list-task .task,
+  .finish-list-task .task {
+    width: 100%;
+    min-width: 340px;
+  }
 }

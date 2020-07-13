@@ -1,45 +1,40 @@
 .base-buttons {
-    display: flex;
-    justify-content: space-around;
+  display: flex;
+  justify-content: space-around;
 }
 
 footer p {
-    text-align: right;
+  text-align: right;
 }
-
-/* 769px */
 
 @media screen and (max-width: 769px) {
-    nav .container {
-        padding-top: 10px;
-        padding-bottom: 10px;
-    }
+  nav .container {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
 
-    .navbar-header {
-        text-align: center;
-    }
-
-    .navbar-header a {
-        float: none;
-    }
-
-    footer p {
+  .navbar-header {
     text-align: center;
-    }
+  }
+
+  .navbar-header a {
+    float: none;
+  }
+
+  footer p {
+    text-align: center;
+  }
 }
 
-
-/* 449px */
-
 @media screen and (max-width: 449px) {
-    .base-buttons {
-        flex-direction: column;
-        align-items: center;
-    }
+  .base-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
 
-    .base-buttons a {
-        margin: 10px 20px;
-        padding: 6px;
-        width: 200px;
-    }
+  .base-buttons a {
+    margin: 10px 20px;
+    padding: 6px;
+    width: 200px;
+  }
 }
