@@ -21,9 +21,9 @@ Improve an existing project built with Symfony 3.1 and Bootstrap 3.3.7.
 * Xdebug 2.9.5
 
 * Wampserver 3.2.0
-  * PHP 7.4.1
-  * Apache 2.4.41
-  * MySQL 8.0.18
+  *   PHP 7.4.1
+  *   Apache 2.4.41
+  *   MySQL 8.0.18
     
 ------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -85,7 +85,12 @@ php bin/console doctrine:database:create --env=test
 php bin/console doctrine:schema:update --env=test --force
 ```
 
-4.  **Run the tests** - Execute the command :
+4.  **Run the Symfony server** - Execute the command :
+```
+symfony server:start
+```
+
+5.  **Run the tests** - Execute the command :
 ```
 php bin/phpunit
 ```
