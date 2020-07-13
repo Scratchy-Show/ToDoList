@@ -1,0 +1,19 @@
+.index-buttons {
+    display: flex;
+    justify-content: space-around;
+}
+
+/* 600px */
+
+@media screen and (max-width: 600px) {
+    .index-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .index-buttons a {
+        width: 200px;
+        margin: 10px 20px;
+        padding: 6px;
+    }
+}

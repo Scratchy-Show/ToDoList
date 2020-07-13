@@ -15,6 +15,13 @@
 
         <!-- Custom CSS -->
         <link href="{{ asset('css/shop-homepage.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/base.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/login.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/index.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/create-task-and-user.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/edit-task-and-user.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/list-user.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/list-and-finish-list-task.css') }}" rel="stylesheet">
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -37,7 +44,7 @@
 
         <!-- Page Content -->
         <div class="container">
-            <div class="row">
+            <div class="base-buttons row">
                 {% if is_granted('ROLE_ADMIN') %}
                     <a href="{{ path('user_create') }}" class="btn btn-primary">Créer un utilisateur</a>
                     {% if 'user_list' != app.request.attributes.get('_route') %}
@@ -91,7 +98,7 @@
             <footer>
                 <div class="row">
                     <div class="col-lg-12">
-                        <p class="pull-right">Copyright &copy; OpenClassrooms</p>
+                        <p>Copyright &copy; OpenClassrooms</p>
                     </div>
                 </div>
             </footer>

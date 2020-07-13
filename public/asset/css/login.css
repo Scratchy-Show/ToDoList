@@ -1,0 +1,62 @@
+.login-form {
+    display: flex;
+    flex-direction: column;
+    width: 95%;
+    margin: auto;
+}
+
+.login-form .input-login-form {
+    width: 70%;
+    margin: auto;
+}
+
+.login-form .input-login-form .input-username,
+.login-form .input-login-form .input-password {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin: 10px;
+}
+
+.login-form .input-login-form .input-username label,
+.login-form .input-login-form .input-password label {
+    width: 150px;
+    margin-right: 5px;
+    text-align: end;
+}
+
+.login-form .input-login-form .input-username input,
+.login-form .input-login-form .input-password input {
+    width: 50%;
+}
+
+.login-form button {
+    align-self: center;
+}
+
+/* 600px */
+
+@media screen and (max-width: 600px) {
+    .login-form .input-login-form {
+        width: 95%;
+        margin: auto;
+    }
+
+    .login-form .input-login-form .input-username,
+    .login-form .input-login-form .input-password {
+        flex-direction: column;
+    }
+
+    .login-form .input-login-form .input-username label,
+    .login-form .input-login-form .input-password label {
+        width: 100%;
+        margin-right: 0;
+        text-align: center;
+    }
+
+    .login-form .input-login-form .input-username input,
+    .login-form .input-login-form .input-password input {
+        width: 90%;
+    }
+}
