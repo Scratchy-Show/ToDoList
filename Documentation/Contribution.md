@@ -82,7 +82,7 @@ The score must be at least B.
 
 For this project, we are using **[PHPUnit](https://phpunit.de/)** for unit and functional tests and we have done some code coverage which you can find in the documentation **tests/Coverage directory**.
 
-### Recommendations to follow:
+### Recommendations to follow :
 
 Run PHPUnit regularly to verify the code.  
 Implement your own tests, but make sure you don't decrease code coverage (100%).  
