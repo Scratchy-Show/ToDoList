@@ -14,11 +14,6 @@ footer p {
 }
 
 @media screen and (max-width: 769px) {
-  nav .container {
-  /*  padding-top: 10px;*/
-    /*padding-bottom: 10px;*/
-  }
-
   .navbar-header {
     text-align: center;
   }
