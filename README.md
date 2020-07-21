@@ -8,6 +8,7 @@ Improve an existing project built with Symfony 3.1 and Bootstrap 3.3.7.
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/ecc0a8b843464aff82b74b5d82f05fbf)](https://www.codacy.com/manual/Scratchy-Show/TodoList?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Scratchy-Show/TodoList&amp;utm_campaign=Badge_Grade)
 
 ------------------------------------------------------------------------------------------------------------------------------------------
+
 ## Environment used for development
 
 * Symfony 5.1.2
