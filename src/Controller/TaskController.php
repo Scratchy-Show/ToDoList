@@ -79,6 +79,29 @@ class TaskController extends AbstractController // Permet d'utiliser la méthode
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            // Récupère un tableau avec les rôles de l'utilisateur
+            $arrayRoles = $this->getUser()->getRoles();
+
+            // Si la tâche est anonyme
+            if ($task->getUser()->getUsername() == 'Anonyme') {
+                // Si l'utilisateur n'est pas un ADMIN
+                if ($this->getUser()->getRoles() != in_array('ROLE_ADMIN', $arrayRoles)) {
+                    $this->addFlash('error',
+                        'Seul un admin peut modifier une tâche de l\'utilisateur anonyme');
+                    return $this->redirectToRoute('task_list');
+                }
+            }
+
+            // Si la tâche n'est pas anonyme
+            if ($task->getUser()->getUsername() != 'Anonyme') {
+                // Si l'utilisateur n'est pas celui qui a créé la tâche
+                if ($this->getUser() != $task->getUser()) {
+                    $this->addFlash('error', 'Seul l\'auteur de la tâche peut la modifier');
+                    return $this->redirectToRoute('task_list');
+                }
+            }
+            
             $this->getDoctrine()->getManager()->flush();
 
             $this->addFlash('success', 'La tâche a bien été modifiée.');
