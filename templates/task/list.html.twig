@@ -26,7 +26,7 @@
                                 {% if not task.isDone %}Marquer comme faite{% endif %}
                             </button>
                         </form>
-                        {% if (task.user  == app.user) or (task.user.username == 'Anonyme' and app.user.role == 'ROLE_ADMIN') %}
+                        {% if (task.user  == app.user) or (task.user ? task.user.username == 'Anonyme' and app.user.role == 'ROLE_ADMIN') %}
                             <form action="{{ path('task_edit', {'id' : task.id }) }}">
                                 <button class="btn btn-info btn-sm">Modifier</button>
                             </form>
