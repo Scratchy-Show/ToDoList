@@ -21,17 +21,16 @@
                         <p>{{ task.content }}</p>
                     </div>
                     <div class="container-buttons">
-                        <form action="{{ path('task_delete', {'id' : task.id }) }}">
-                            <button class="btn btn-danger btn-sm">Supprimer</button>
-                        </form>
                         <form action="{{ path('task_toggle', {'id' : task.id }) }}">
                             <button class="btn btn-success btn-sm">
                                 {% if not task.isDone %}Marquer comme faite{% endif %}
                             </button>
                         </form>
-                        <form action="{{ path('task_edit', {'id' : task.id }) }}">
-                            <button class="btn btn-info btn-sm">Modifier</button>
-                        </form>
+                        {% if (task.user  == app.user) or (task.user.username == 'Anonyme' and app.user.role == 'ROLE_ADMIN') %}
+                            <form action="{{ path('task_edit', {'id' : task.id }) }}">
+                                <button class="btn btn-info btn-sm">Modifier</button>
+                            </form>
+                        {% endif %}
                     </div>
                 </div>
             </div>
