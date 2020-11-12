@@ -1,6 +1,6 @@
 # TodoList
 
-Improve an existing project built with Symfony 3.1 and Bootstrap 3.3.7.
+Improve an existing project built with Symfony 3.1 and Bootstrap 3.3.7
 
 ------------------------------------------------------------------------------------------------------------------------------------------
 
